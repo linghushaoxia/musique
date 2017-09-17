@@ -29,5 +29,6 @@
         <module>vorbis-java</module>
         <module>wavpack</module>
         <module>discogs</module>
+        <module>jkeymaster</module>
     </modules>
 </project>
