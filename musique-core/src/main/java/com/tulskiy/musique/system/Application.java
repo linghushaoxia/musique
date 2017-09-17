@@ -67,7 +67,7 @@ public class Application {
     private Configuration configuration;
     private PlaylistManager playlistManager;
     private MainWindow mainWindow;
-    public final String VERSION = "Musique 0.3-SNAPSHOT";
+    public final String VERSION = "Musique 0.4";
     public File CONFIG_HOME;
     private File configFile;
     private PluginLoader pluginLoader;

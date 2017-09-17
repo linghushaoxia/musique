@@ -48,6 +48,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.tulskiy.musique.gui.dialogs.ProgressDialog;
 import com.tulskiy.musique.gui.dialogs.Task;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.playlist.Playlist;
 import com.tulskiy.musique.playlist.PlaylistListener;
 import com.tulskiy.musique.playlist.PlaylistManager;
@@ -249,23 +251,24 @@ public class PlaylistTabs extends JPanel {
         });
     }
 
-    private void createActions() {
+    @SuppressWarnings("serial")
+	private void createActions() {
         ActionMap aMap = tabbedPane.getActionMap();
 
-        aMap.put("newPlaylist", new AbstractAction("Add New Playlist") {
+        aMap.put("newPlaylist", new AbstractAction(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADD_NEW_PLAYLIST)) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog("Enter Playlist Name", "New Playlist");
+                String name = JOptionPane.showInputDialog(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_Enter_Playlist_Name),LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_NEW_PLAYLIST));
                 if (!Util.isEmpty(name))
                     addPlaylist(name);
             }
         });
-        aMap.put("renamePlaylist", new AbstractAction("Rename") {
+        aMap.put("renamePlaylist", new AbstractAction(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_RENAME)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedTable != null) {
                     Playlist playlist = selectedTable.getPlaylist();
-                    String name = JOptionPane.showInputDialog("Rename", playlist.getName());
+                    String name = JOptionPane.showInputDialog(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_RENAME), playlist.getName());
                     if (!Util.isEmpty(name)) {
                         playlist.setName(name);
                         tabbedPane.setTitleAt(tabbedPane.getSelectedIndex(), center(name));
@@ -273,7 +276,7 @@ public class PlaylistTabs extends JPanel {
                 }
             }
         });
-        aMap.put("removePlaylist", new AbstractAction("Remove Playlist") {
+        aMap.put("removePlaylist", new AbstractAction(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_REMOVE_PLAYLIST)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (selectedTable != null) {
@@ -282,7 +285,7 @@ public class PlaylistTabs extends JPanel {
                 }
             }
         });
-        aMap.put("savePlaylist", new AbstractAction("Save Playlist") {
+        aMap.put("savePlaylist", new AbstractAction(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SAVE_PLAYLIST)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
@@ -290,9 +293,9 @@ public class PlaylistTabs extends JPanel {
                 if (!path.isEmpty()) fc.setCurrentDirectory(new File(path));
                 fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 fc.setAcceptAllFileFilterUsed(false);
-                FileNameExtensionFilter musFiler = new FileNameExtensionFilter("Musique Playlist", "mus");
-                FileNameExtensionFilter m3uFilter = new FileNameExtensionFilter("M3U Playlist", "m3u", "m3u8");
-                FileNameExtensionFilter plsFiler = new FileNameExtensionFilter("PLS Playlist", "pls");
+                FileNameExtensionFilter musFiler = new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_MUSIQUE_PLAYLIST), "mus");
+                FileNameExtensionFilter m3uFilter = new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_M3U_Playlist), "m3u", "m3u8");
+                FileNameExtensionFilter plsFiler = new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PLS_PLAYLIST), "pls");
                 fc.addChoosableFileFilter(musFiler);
                 fc.addChoosableFileFilter(m3uFilter);
                 fc.addChoosableFileFilter(plsFiler);
@@ -320,7 +323,7 @@ public class PlaylistTabs extends JPanel {
                 }
             }
         });
-        aMap.put("loadPlaylist", new AbstractAction("Load Playlist") {
+        aMap.put("loadPlaylist", new AbstractAction(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_LOAD_PLAYLIST)) {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
@@ -329,16 +332,16 @@ public class PlaylistTabs extends JPanel {
                 fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 fc.setMultiSelectionEnabled(false);
                 fc.setAcceptAllFileFilterUsed(false);
-                fc.addChoosableFileFilter(new FileNameExtensionFilter("All supported formats", "mus", "m3u", "m3u8", "pls"));
-                fc.addChoosableFileFilter(new FileNameExtensionFilter("Musique Playlist", "mus"));
-                fc.addChoosableFileFilter(new FileNameExtensionFilter("M3U Playlist", "m3u", "m3u8"));
-                fc.addChoosableFileFilter(new FileNameExtensionFilter("PLS Playlist", "pls"));
+                fc.addChoosableFileFilter(new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ALL_SUPPORTED_FORMATS), "mus", "m3u", "m3u8", "pls"));
+                fc.addChoosableFileFilter(new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_MUSIQUE_PLAYLIST), "mus"));
+                fc.addChoosableFileFilter(new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_M3U_Playlist), "m3u", "m3u8"));
+                fc.addChoosableFileFilter(new FileNameExtensionFilter(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_MUSIQUE_PLAYLIST), "pls"));
 
                 int ret = fc.showOpenDialog(getRootPane());
                 if (ret == JFileChooser.APPROVE_OPTION) {
                     File file = fc.getSelectedFile();
                     Playlist playlist = addPlaylist(Util.capitalize(Util.removeExt(file.getName()), " "));
-                    ProgressDialog dialog = new ProgressDialog(tabbedPane, "Adding Files");
+                    ProgressDialog dialog = new ProgressDialog(tabbedPane,LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADDING_FILES));
                     dialog.show(new Task.FileAddingTask(playlist, new File[]{fc.getSelectedFile()}, -1));
                     config.setString("playlists.lastDir", fc.getCurrentDirectory().getAbsolutePath());
                 }

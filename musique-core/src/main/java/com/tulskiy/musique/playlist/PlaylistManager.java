@@ -21,6 +21,8 @@
  */
 package com.tulskiy.musique.playlist;
 
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.playlist.PlaylistColumn;
 import com.tulskiy.musique.library.Library;
 import com.tulskiy.musique.system.Application;
@@ -155,11 +157,11 @@ public class PlaylistManager {
         playlist.setName(name);
         // default columns
         playlist.setColumns(Arrays.asList(
-                new PlaylistColumn("Playing", 55, "$isPlaying()"),
-                new PlaylistColumn("Name", 325, "[%artist% - ]%title%"),
-                new PlaylistColumn("Length", 70, "%length%"),
-                new PlaylistColumn("Album", 225, "%album%"),
-                new PlaylistColumn("Date", 55, "%year%")));
+                new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PLAYING), 55, "$isPlaying()"),
+                new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_NAME), 325, "[%artist% - ]%title%"),
+                new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_LENGTH), 70, "%length%"),
+                new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ALBUM), 225, "%album%"),
+                new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_DATE), 55, "%year%")));
         playlists.add(playlist);
         notifyListeners(playlist, Event.ADDED);
         return playlist;

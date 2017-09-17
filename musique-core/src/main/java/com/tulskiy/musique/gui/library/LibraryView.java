@@ -23,6 +23,8 @@ import com.tulskiy.musique.gui.dialogs.OptionsDialog;
 import com.tulskiy.musique.gui.dialogs.ProgressDialog;
 import com.tulskiy.musique.gui.dialogs.Task;
 import com.tulskiy.musique.gui.dnd.LibraryTransferHandler;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.menu.LibraryMenu;
 import com.tulskiy.musique.images.Images;
 import com.tulskiy.musique.library.Library;
@@ -39,6 +41,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -86,7 +89,8 @@ public class LibraryView extends JPanel {
         tree.setTransferHandler(new LibraryTransferHandler());
     }
 
-    private void initComponents() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	private void initComponents() {
         setLayout(new BorderLayout(5, 5));
         tree = new LibraryTree();
         tree.setRootNode(library.getRootNode());
@@ -95,19 +99,19 @@ public class LibraryView extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         final SearchField searchField = new SearchField();
         Box viewBox = Box.createHorizontalBox();
-        JComboBox viewCombo = new JComboBox(new Object[]{"By Album Artist"});
+        JComboBox viewCombo = new JComboBox(new Object[]{LanguageUtil.getLocalText(LanguageConfigconst.SET_VIEW_BY_ALBUM_ARTIST)});
         JPanel p1 = new JPanel(new BorderLayout());
         p1.add(viewCombo);
         p1.setMaximumSize(new Dimension(200, 100));
         p1.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "View",
+                BorderFactory.createEtchedBorder(), LanguageUtil.getLocalText(LanguageConfigconst.SET_VIEW),
                 TitledBorder.DEFAULT_JUSTIFICATION,
                 TitledBorder.TOP, new Font("Sans Serif", 0, 11)));
         viewBox.add(p1);
         JPanel p2 = new JPanel(new BorderLayout());
         p2.add(searchField);
         p2.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Filter",
+                BorderFactory.createEtchedBorder(), LanguageUtil.getLocalText(LanguageConfigconst.SET_VIEW_FILTER),
                 TitledBorder.DEFAULT_JUSTIFICATION,
                 TitledBorder.TOP, new Font("Sans Serif", 0, 11)));
         viewBox.add(p2);
@@ -141,7 +145,6 @@ public class LibraryView extends JPanel {
 
     private void initListeners() {
         tree.getSelectionModel().addTreeSelectionListener(new TreeSelectionListener() {
-            @SuppressWarnings({"unchecked"})
             @Override
             public void valueChanged(TreeSelectionEvent e) {
                 if (config.getBoolean("library.libraryView", false))
@@ -200,7 +203,7 @@ public class LibraryView extends JPanel {
 
     private void createLibraryView(boolean setVisible) {
         if (libraryPlaylist == null) {
-            libraryPlaylist = playlistManager.addPlaylist("Library");
+            libraryPlaylist = playlistManager.addPlaylist(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY));
             libraryPlaylist.setLibraryView(true);
         }
 
@@ -212,20 +215,20 @@ public class LibraryView extends JPanel {
     }
 
     public void addMenu(JMenuBar menuBar) {
-        JMenu menu = new JMenu("Library");
+        JMenu menu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY));
         menuBar.add(menu);
-        JMenuItem configure = menu.add("Configure     ");
+        JMenuItem configure = menu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_CONFIGURE));
         configure.setIcon(Images.getEmptyIcon());
         configure.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OptionsDialog(getRootPane(), "Library").setVisible(true);
+                new OptionsDialog(getRootPane(), LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY)).setVisible(true);
             }
         });
-        menu.add("Rescan").addActionListener(new ActionListener() {
+        menu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_RESCAN)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProgressDialog progressDialog = new ProgressDialog(getRootPane(), "Library Rescan");
+                ProgressDialog progressDialog = new ProgressDialog(getRootPane(),LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_RESCAN));
                 progressDialog.show(new Task() {
                     HashMap<String, Object> map = new HashMap<String, Object>();
 

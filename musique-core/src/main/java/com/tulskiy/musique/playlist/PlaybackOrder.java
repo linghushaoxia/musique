@@ -17,6 +17,8 @@
 
 package com.tulskiy.musique.playlist;
 
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.playlist.formatting.Parser;
 import com.tulskiy.musique.playlist.formatting.tokens.Expression;
 import com.tulskiy.musique.system.Application;
@@ -37,15 +39,15 @@ import java.util.List;
  */
 public class PlaybackOrder {
     public enum Order {
-        DEFAULT("Default"),
-        REPEAT("Repeat"),
-        REPEAT_TRACK("Repeat track"),
-        REPEAT_ALBUM("Repeat album"),
-        REPEAT_GROUP("Repeat group"),
-        SHUFFLE("Shuffle"),
-        SHUFFLE_ALBUMS("Shuffle albums"),
-        SHUFFLE_GROUPS("Shuffle groups"),
-        RANDOM("Random");
+        DEFAULT(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_DEFAULT)),
+        REPEAT(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_REPEAT)),
+        REPEAT_TRACK(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_REPEAT_TRACK)),
+        REPEAT_ALBUM(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_REPEAT_ALBUM)),
+        REPEAT_GROUP(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_REPEAT_GROUP)),
+        SHUFFLE(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_SHUFFLE)),
+        SHUFFLE_ALBUMS(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_SHUFFLE_ALBUMS)),
+        SHUFFLE_GROUPS(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_SHUFFLE_GROUPS)),
+        RANDOM(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER_RANDOM));
 
         private String text;
 

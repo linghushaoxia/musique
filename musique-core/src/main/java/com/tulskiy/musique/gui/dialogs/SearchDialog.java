@@ -19,6 +19,8 @@ package com.tulskiy.musique.gui.dialogs;
 
 import com.tulskiy.musique.audio.player.Player;
 import com.tulskiy.musique.gui.SearchWorker;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.playlist.PlaylistColumn;
 import com.tulskiy.musique.gui.playlist.PlaylistTable;
 import com.tulskiy.musique.playlist.PlaybackOrder;
@@ -32,6 +34,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,10 +70,10 @@ public class SearchDialog extends JDialog {
         searchField = new JTextField();
 
         ArrayList<PlaylistColumn> columns = new ArrayList<PlaylistColumn>();
-        columns.add(new PlaylistColumn("  ", 20, "$isPlaying()"));
-        columns.add(new PlaylistColumn("Name", 400, "[%artist% - ]$if3(%title%,%fileName%)"));
-        columns.add(new PlaylistColumn("Length", 60, "%length%"));
-        columns.add(new PlaylistColumn("Album", 100, "%album%"));
+        columns.add(new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PLAYING), 20, "$isPlaying()"));
+        columns.add(new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_NAME), 400, "[%artist% - ]$if3(%title%,%fileName%)"));
+        columns.add(new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_LENGTH), 60, "%length%"));
+        columns.add(new PlaylistColumn(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ALBUM), 100, "%album%"));
 
         playlist = playlistTable.getPlaylist();
         table = new PlaylistTable(view, columns);

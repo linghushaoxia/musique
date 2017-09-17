@@ -20,6 +20,8 @@ package com.tulskiy.musique.gui;
 import com.tulskiy.musique.audio.player.PlayerEvent;
 import com.tulskiy.musique.audio.player.PlayerListener;
 import com.tulskiy.musique.gui.dialogs.TextDialog;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.library.LibraryView;
 import com.tulskiy.musique.gui.playlist.PlaylistPanel;
 import com.tulskiy.musique.images.Images;
@@ -31,11 +33,11 @@ import com.tulskiy.musique.system.configuration.Configuration;
 import com.tulskiy.musique.util.Util;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
 
 /**
  * Author: Denis Tulskiy
@@ -59,8 +61,8 @@ public class MainWindow extends JFrame {
         LyricsPanel lyricsPanel = new LyricsPanel();
         LibraryView libraryView = new LibraryView();
         JTabbedPane topLeftSide = new JTabbedPane();
-        topLeftSide.add("Library", libraryView);
-        topLeftSide.add("Lyrics", lyricsPanel);
+        topLeftSide.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY), libraryView);
+        topLeftSide.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_LYRICS), lyricsPanel);
         topLeftSide.setFocusable(false);
         side = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topLeftSide, new AlbumArtPanel());
         side.setDividerSize(6);
@@ -140,30 +142,30 @@ public class MainWindow extends JFrame {
     private void addHelpMenu(JMenuBar menuBar) {
         Icon emptyIcon = Images.getEmptyIcon();
 
-        JMenu helpMenu = new JMenu("Help");
+        JMenu helpMenu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.SET_HELP));
         menuBar.add(helpMenu);
 
         final JFrame comp = this;
-        JMenuItem helpMenuItem = helpMenu.add("Help     ");
+        JMenuItem helpMenuItem = helpMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_HELP));
         helpMenuItem.setIcon(emptyIcon);
         helpMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp, "Readme", new File("README")).setVisible(true);
+                new TextDialog(comp, "Readme", ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"README.txt")).setVisible(true);
             }
         });
 
-        helpMenu.add("License").addActionListener(new ActionListener() {
+        helpMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_LICENSE)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp, "License", new File("Copying")).setVisible(true);
+                new TextDialog(comp,LanguageUtil.getLocalText(LanguageConfigconst.SET_LICENSE), ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"Copying.txt")).setVisible(true);
             }
         });
 
-        helpMenu.add("About").addActionListener(new ActionListener() {
+        helpMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp, "About", new File("ABOUT")).setVisible(true);
+                new TextDialog(comp, LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT), ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"about.txt")).setVisible(true);
             }
         });
     }

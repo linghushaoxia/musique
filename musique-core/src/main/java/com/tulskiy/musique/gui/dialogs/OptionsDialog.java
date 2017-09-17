@@ -19,6 +19,8 @@ package com.tulskiy.musique.gui.dialogs;
 
 import com.tulskiy.musique.audio.AudioFileReader;
 import com.tulskiy.musique.audio.player.io.AudioOutput;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.library.LibraryAction;
 import com.tulskiy.musique.spi.Plugin;
 import com.tulskiy.musique.system.Application;
@@ -33,6 +35,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.metal.MetalLookAndFeel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -49,6 +52,7 @@ import java.util.logging.Logger;
  * Date: 12/23/10
  */
 
+@SuppressWarnings("serial")
 public class OptionsDialog extends JDialog {
     private Application app = Application.getInstance();
     private Configuration config = app.getConfiguration();
@@ -99,7 +103,7 @@ public class OptionsDialog extends JDialog {
         final AudioOutput output = app.getPlayer().getAudioOutput();
 
         Vector<String> mixerVector = new Vector<String>();
-        mixerVector.add("Detect automatically");
+        mixerVector.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_SYSTEM_DETECT_AUTOMATICALLY));
         final Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
         int selectedIndex = Arrays.asList(mixerInfo).indexOf(output.getMixer());
         for (Mixer.Info info : mixerInfo) {
@@ -470,18 +474,18 @@ public class OptionsDialog extends JDialog {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Settings");
+        setTitle(LanguageUtil.getLocalText(LanguageConfigconst.SET_SETTINGS));
         setAlwaysOnTop(true);
 
         tabbedPane.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         tabbedPane.setFocusable(false);
 
-        jLabel1.setText("Audio Mixer");
+        jLabel1.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SYSTEM_AUDIO_MIXER));
 
-        jLabel2.setText("Default Encoding for tags");
+        jLabel2.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SYSTEM_DEFAULT_ENCODING_FOR_TAGS));
 
-        singleInstance.setText("Allow only one instance (requires restart)");
+        singleInstance.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SYSTEM_ALLOW_ONLY_ONE_INSTANCE));
         singleInstance.setFocusPainted(false);
         singleInstance.setMargin(new java.awt.Insets(2, -1, 2, 2));
 
@@ -519,23 +523,23 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(339, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("System", systemPanel);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_SYSTEM), systemPanel);
 
-        jLabel3.setText("Host");
+        jLabel3.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_HOST));
 
-        jLabel4.setText("Port");
+        jLabel4.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_PORT));
 
-        jLabel5.setText("Username");
+        jLabel5.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_USER_NAME));
 
-        jLabel6.setText("Password");
+        jLabel6.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_PASSWORD));
 
-        jLabel7.setText("Username");
+        jLabel7.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_USER_NAME));
 
-        jLabel8.setText("Password");
+        jLabel8.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_PASSWORD));
 
-        separatorLabel5.setText("HTTP Proxy");
+        separatorLabel5.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_HTTP_PROXY));
 
-        separatorLabel6.setText("Last.fm Scrobbling");
+        separatorLabel6.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK_LAST_FM));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -612,26 +616,26 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(186, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Network", jPanel1);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_NETWORK), jPanel1);
 
-        separatorLabel7.setText("Music Folders");
+        separatorLabel7.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_FOLDERS));
 
-        addMusicFolder.setText("Add");
+        addMusicFolder.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ADD));
 
-        removeMusicFolder.setText("Remove");
+        removeMusicFolder.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_REMOVE));
 
-        enableLibraryView.setText("Enable Library View playlist");
+        enableLibraryView.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ENABLE_LIBRARY_VIEW_PLAYLIST));
 
-        separatorLabel9.setText("Actions");
+        separatorLabel9.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ACTIONS));
 
         musicFolders.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(musicFolders);
 
-        jLabel20.setText("Double-Click Action");
+        jLabel20.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ACTIONS_DOUBLE_CLICK));
 
-        jLabel21.setText("Middle-Click Action");
+        jLabel21.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ACTIONS_MIDDLE_CLICK));
 
-        separatorLabel10.setText("Views");
+        separatorLabel10.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_VIEWS));
 
         libraryViewsTable.setFont(libraryViewsTable.getFont().deriveFont((float)10));
         libraryViewsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -656,9 +660,9 @@ public class OptionsDialog extends JDialog {
         libraryViewsTable.getColumnModel().getColumn(0).setMaxWidth(100);
         jScrollPane4.setViewportView(libraryViewsTable);
 
-        removeView.setText("Remove");
+        removeView.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_REMOVE));
 
-        addView.setText("Add");
+        addView.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_MUSIC_ADD));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -731,50 +735,50 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("Library", jPanel4);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY), jPanel4);
 
         jPanel5.setPreferredSize(new java.awt.Dimension(488, 400));
 
-        jLabel9.setText("Look And Feel");
+        jLabel9.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LOOK_AND_FEEL));
 
-        enableTray.setText("Enable Notification Area Icon");
+        enableTray.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_LIBRARY_ENABLE_NOTIFICATION_AREA_ICON));
         enableTray.setFocusPainted(false);
 
-        minimizeOnClose.setText("Minimize to tray on close");
+        minimizeOnClose.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_MINIMIZETO_TRAY_ON_CLOSE));
         minimizeOnClose.setFocusPainted(false);
 
-        showSideBar.setText("Show Side Bar");
+        showSideBar.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SHOW_SIDE_BAR));
         showSideBar.setFocusPainted(false);
 
-        searchLyrics.setText("Search Lyrics Online");
+        searchLyrics.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SEARCH_LYRICS_ONLINE));
         searchLyrics.setFocusPainted(false);
 
-        jLabel10.setText("Window Title");
+        jLabel10.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_WINDOW_TITLE));
 
-        jLabel11.setText("Status Bar");
+        jLabel11.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_STATUS_BAR));
 
         buttonGroup1.add(albumArtSelected);
         albumArtSelected.setSelected(true);
-        albumArtSelected.setText("Selected Track");
+        albumArtSelected.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SELECTED_TRACK));
         albumArtSelected.setFocusPainted(false);
 
-        jLabel12.setText("Show Album Art for");
+        jLabel12.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_SHOW_ALBUM_ART_FOR));
 
-        jLabel13.setText("Album Art Stubs");
+        jLabel13.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_ALBUM_ART_STUBS));
 
         buttonGroup1.add(albumArtPlaying);
-        albumArtPlaying.setText("Playing Track");
+        albumArtPlaying.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_PLAYING_TRACK));
         albumArtPlaying.setFocusPainted(false);
 
         albumArtStubs.setColumns(20);
         albumArtStubs.setRows(5);
         jScrollPane2.setViewportView(albumArtStubs);
 
-        separatorLabel4.setText("Album Art");
+        separatorLabel4.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_ALBUM_ART));
 
-        separatorLabel3.setText("Display Formatting");
+        separatorLabel3.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_DISPLAY_FORMATTING));
 
-        jLabel23.setText("Shuffle Albums mode pattern");
+        jLabel23.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_PATTERN_FOR_SHUFFLE_ALBUMS_MODE));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -869,25 +873,25 @@ public class OptionsDialog extends JDialog {
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
-        tabbedPane.addTab("GUI", jPanel5);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_GUI), jPanel5);
 
-        jLabel14.setText("Text");
+        jLabel14.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_TEXT));
 
-        jLabel15.setText("Background");
+        jLabel15.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_BACKGROUND));
 
-        jLabel16.setText("Selection");
+        jLabel16.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_SELECTION));
 
-        jLabel17.setText("Highlight");
+        jLabel17.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_HIGHLIGHT));
 
-        jLabel18.setText("Tray Background 1");
+        jLabel18.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_TRAY_BACKGROUND1));
 
-        jLabel19.setText("Tray Background 2");
+        jLabel19.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_TRAY_BACKGROUND2));
 
-        jLabel22.setText("Default");
+        jLabel22.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_DEFAULT));
 
-        separatorLabel1.setText("Colors");
+        separatorLabel1.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_COLORS));
 
-        separatorLabel2.setText("Fonts");
+        separatorLabel2.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS_FONTS));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -960,17 +964,17 @@ public class OptionsDialog extends JDialog {
                 .addGap(401, 401, 401))
         );
 
-        tabbedPane.addTab("Colors and Fonts", jPanel8);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_COLORS_AND_FONTS), jPanel8);
 
-        configPluginButton.setText("Configure");
+        configPluginButton.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_CONFIGURE));
         configPluginButton.setEnabled(false);
 
         pluginsList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(pluginsList);
 
-        separatorLabel8.setText("Plugins");
+        separatorLabel8.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_PLUGINS));
 
-        aboutPluginButton.setText("About");
+        aboutPluginButton.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT));
         aboutPluginButton.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1006,13 +1010,13 @@ public class OptionsDialog extends JDialog {
                 .addGap(41, 41, 41))
         );
 
-        tabbedPane.addTab("Plugins", jPanel2);
+        tabbedPane.addTab(LanguageUtil.getLocalText(LanguageConfigconst.SET_PLUGINS), jPanel2);
 
-        applyButton.setText("Apply");
+        applyButton.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_APPLY));
 
-        cancelButton.setText("Cancel");
+        cancelButton.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_CANCEL));
 
-        okButton.setText("OK");
+        okButton.setText(LanguageUtil.getLocalText(LanguageConfigconst.SET_OK));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

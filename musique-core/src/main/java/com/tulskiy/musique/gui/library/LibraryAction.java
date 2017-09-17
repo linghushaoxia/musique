@@ -19,15 +19,18 @@ package com.tulskiy.musique.gui.library;
 
 import javax.swing.*;
 
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
+
 /**
  * Author: Denis Tulskiy
  * Date: 2/26/11
  */
 public enum LibraryAction {
-    SEND_TO_CURRENT("Send to Current Playlist", KeyStroke.getKeyStroke("ENTER")),
-    SEND_TO_NEW("Send to New Playlist", KeyStroke.getKeyStroke("ctrl ENTER")),
-    ADD_TO_CURRENT("Add to Current Playlist", KeyStroke.getKeyStroke("shift ENTER")),
-    EXPAND_COLLAPSE("Expand / Collapse", null);
+    SEND_TO_CURRENT(LanguageUtil.getLocalText(LanguageConfigconst.TASK_SEND_TO_CURRENT_PLAYLIST), KeyStroke.getKeyStroke("ENTER")),
+    SEND_TO_NEW(LanguageUtil.getLocalText(LanguageConfigconst.TASK_SEND_TO_NEW_PLAYLIST), KeyStroke.getKeyStroke("ctrl ENTER")),
+    ADD_TO_CURRENT(LanguageUtil.getLocalText(LanguageConfigconst.TASK_ADD_TO_CURRENT_PLAYLIST), KeyStroke.getKeyStroke("shift ENTER")),
+    EXPAND_COLLAPSE(LanguageUtil.getLocalText(LanguageConfigconst.TASK_EXPAND_OR_COLLAPSE), null);
 
     String name;
     KeyStroke hotKey;

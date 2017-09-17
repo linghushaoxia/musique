@@ -1,0 +1,2 @@
+musique 音乐播放器 v0.4
+Copyright (c) 2008-2011,2017 Denis Tulskiy,令狐少侠

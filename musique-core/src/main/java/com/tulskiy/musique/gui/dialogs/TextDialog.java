@@ -18,12 +18,17 @@
 package com.tulskiy.musique.gui.dialogs;
 
 import javax.swing.*;
+
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 /**
@@ -31,51 +36,47 @@ import java.util.Scanner;
  * Date: Sep 29, 2010
  */
 public class TextDialog extends JDialog {
-    public TextDialog(JFrame owner, String title, File file) {
+    public TextDialog(JFrame owner, String title, InputStream file) {
         super(owner, title);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringBuilder sb = new StringBuilder();
-        try {
-            Scanner fi = new Scanner(file);
-            while (fi.hasNextLine()) {
-                sb.append(fi.nextLine()).append("\n");
-            }
-            JTextArea textArea = new JTextArea(sb.toString());
-            textArea.setOpaque(true);
-            textArea.setLineWrap(true);
-            textArea.setWrapStyleWord(true);
-            textArea.setEditable(false);
-            add(new JScrollPane(textArea));
+        Scanner fi = new Scanner(file);
+		while (fi.hasNextLine()) {
+		    sb.append(fi.nextLine()).append("\n");
+		}
+		JTextArea textArea = new JTextArea(sb.toString());
+		textArea.setOpaque(true);
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setEditable(false);
+		add(new JScrollPane(textArea));
 
-            Box buttonBox = Box.createHorizontalBox();
-            buttonBox.add(Box.createHorizontalGlue());
-            JButton close = new JButton("Close");
-            buttonBox.add(close);
-            getRootPane().setDefaultButton(close);
+		Box buttonBox = Box.createHorizontalBox();
+		buttonBox.add(Box.createHorizontalGlue());
+		JButton close = new JButton(LanguageUtil.getLocalText(LanguageConfigconst.SET_CLOSE));
+		buttonBox.add(close);
+		getRootPane().setDefaultButton(close);
 
-            close.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                    dispose();
-                }
-            });
-            InputMap iMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-            iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
+		close.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        setVisible(false);
+		        dispose();
+		    }
+		});
+		InputMap iMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+		iMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "escape");
 
-            ActionMap aMap = getRootPane().getActionMap();
-            aMap.put("escape", new AbstractAction() {
-                public void actionPerformed(ActionEvent e) {
-                    setVisible(false);
-                    dispose();
-                }
-            });
-            buttonBox.add(Box.createHorizontalStrut(10));
-            add(buttonBox, BorderLayout.PAGE_END);
-            setSize(600, 500);
-            setLocationRelativeTo(null);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+		ActionMap aMap = getRootPane().getActionMap();
+		aMap.put("escape", new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		        setVisible(false);
+		        dispose();
+		    }
+		});
+		buttonBox.add(Box.createHorizontalStrut(10));
+		add(buttonBox, BorderLayout.PAGE_END);
+		setSize(600, 500);
+		setLocationRelativeTo(null);
     }
 }

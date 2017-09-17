@@ -17,9 +17,12 @@
 
 package com.tulskiy.musique.gui.dialogs;
 
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.playlist.PlaylistColumn;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,11 +47,11 @@ public class ColumnDialog extends JDialog {
         JPanel p1 = new JPanel(new GridLayout(4, 1));
         p1.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(p1, BorderLayout.NORTH);
-        p1.add(new JLabel("Name"));
+        p1.add(new JLabel(LanguageUtil.getLocalText(LanguageConfigconst.SET_NAME)));
         final JTextField columnName = new JTextField();
         columnName.setText(column.getName());
         p1.add(columnName);
-        p1.add(new JLabel("Format"));
+        p1.add(new JLabel(LanguageUtil.getLocalText(LanguageConfigconst.SET_FORMAT)));
         final JComboBox format = new JComboBox(formats);
         format.setEditable(true);
         format.setSelectedItem(column.getExpression());
@@ -56,7 +59,7 @@ public class ColumnDialog extends JDialog {
 
         Box b2 = new Box(BoxLayout.X_AXIS);
         b2.add(Box.createHorizontalGlue());
-        JButton okButton = new JButton("  OK  ");
+        JButton okButton = new JButton(LanguageUtil.getLocalText(LanguageConfigconst.SET_OK));
         getRootPane().setDefaultButton(okButton);
         b2.add(okButton);
         okButton.addActionListener(new ActionListener() {
@@ -76,7 +79,7 @@ public class ColumnDialog extends JDialog {
         });
         b2.add(Box.createHorizontalStrut(5));
 
-        JButton cancelButton = new JButton("Cancel");
+        JButton cancelButton = new JButton(LanguageUtil.getLocalText(LanguageConfigconst.SET_CANCEL));
         b2.add(cancelButton);
         cancelButton.addActionListener(new ActionListener() {
             @Override

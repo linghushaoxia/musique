@@ -37,6 +37,8 @@ import com.tulskiy.musique.gui.dialogs.ConverterDialog;
 import com.tulskiy.musique.gui.dialogs.FileOperations;
 import com.tulskiy.musique.gui.dialogs.ProgressDialog;
 import com.tulskiy.musique.gui.dialogs.Task;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.gui.playlist.PlaylistTable;
 import com.tulskiy.musique.images.Images;
 import com.tulskiy.musique.playlist.Playlist;
@@ -63,10 +65,10 @@ public class TracksMenu extends Menu {
         item = tableMenu.add(aMap.get("enqueue"));
         item.setIcon(Images.getEmptyIcon());
         item.setAccelerator(KeyStroke.getKeyStroke("Q"));
-        tableMenu.add(new JMenuItem("Reload Tags")).addActionListener(new ActionListener() {
+        tableMenu.add(new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.TASK_RELOAD_TAGS))).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ProgressDialog dialog = new ProgressDialog(parent, "Reloading Tags");
+                ProgressDialog dialog = new ProgressDialog(parent,LanguageUtil.getLocalText(LanguageConfigconst.TASK_RELOADING_TAGS));
                 dialog.show(new Task() {
                     String currentTrack;
                     float progress = 0;
@@ -121,8 +123,8 @@ public class TracksMenu extends Menu {
                 new FileOperations(parent, op, tracks).setVisible(true);
             }
         };
-        JMenu fileOps = new JMenu("File Operations");
-        fileOps.add("Open containing folder").addActionListener(new ActionListener() {
+        JMenu fileOps = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.TASK_FILE_OPERATIONS));
+        fileOps.add(LanguageUtil.getLocalText(LanguageConfigconst.TASK_OPEN_CONTAINING_FOLDER)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (Track track : tracks) {
@@ -143,7 +145,7 @@ public class TracksMenu extends Menu {
             fileOps.add(op.name()).addActionListener(fileOpsListener);
         }
         fileOps.addSeparator();
-        JMenuItem deleteItem = fileOps.add("Delete       ");
+        JMenuItem deleteItem = fileOps.add(LanguageUtil.getLocalText(LanguageConfigconst.TASK_FILE_OPERATIONS_DELETE));
         deleteItem.setIcon(Images.getEmptyIcon());
         deleteItem.addActionListener(new ActionListener() {
             @Override
@@ -169,7 +171,7 @@ public class TracksMenu extends Menu {
             }
         });
 
-        tableMenu.add("Convert").addActionListener(new ActionListener() {
+        tableMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.TASK_CONVERT)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ConverterDialog(parent, tracks).setVisible(true);
@@ -183,7 +185,7 @@ public class TracksMenu extends Menu {
                 tableMenu.add(menu);
         }
 
-        JMenuItem properties = new JMenuItem("Properties");
+        JMenuItem properties = new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PROPERTIES));
         properties.setAccelerator(KeyStroke.getKeyStroke("alt ENTER"));
         properties.addActionListener(new ActionListener() {
             @Override

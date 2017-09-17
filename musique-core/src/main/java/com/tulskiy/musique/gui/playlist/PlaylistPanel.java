@@ -63,6 +63,8 @@ import com.tulskiy.musique.gui.dialogs.ProgressDialog;
 import com.tulskiy.musique.gui.dialogs.SearchDialog;
 import com.tulskiy.musique.gui.dialogs.Task;
 import com.tulskiy.musique.gui.dialogs.TreeFileChooser;
+import com.tulskiy.musique.gui.language.LanguageConfigconst;
+import com.tulskiy.musique.gui.language.LanguageUtil;
 import com.tulskiy.musique.images.Images;
 import com.tulskiy.musique.playlist.PlaybackOrder;
 import com.tulskiy.musique.playlist.Playlist;
@@ -207,11 +209,11 @@ public class PlaylistPanel extends JPanel {
         Icon emptyIcon = Images.getEmptyIcon();
 
         final JComponent comp = getRootPane();
-        JMenu fileMenu = new JMenu("File ");
+        JMenu fileMenu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_FILE));
         menuBar.add(fileMenu);
-        JMenu editMenu = new JMenu("Edit");
+        JMenu editMenu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_EDIT));
         menuBar.add(editMenu);
-        final JMenu playbackMenu = new JMenu("Playback");
+        final JMenu playbackMenu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PLAYBACK));
         menuBar.add(playbackMenu);
 
         ActionMap tMap = tabs.getActions();
@@ -221,20 +223,20 @@ public class PlaylistPanel extends JPanel {
         fileMenu.add(tMap.get("savePlaylist")).setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
 
         fileMenu.addSeparator();
-        fileMenu.add("Add Files").addActionListener(new ActionListener() {
+        fileMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADD_FILES)).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addItems(JFileChooser.FILES_ONLY);
             }
         });
-        fileMenu.add("Add Folder").addActionListener(new ActionListener() {
+        fileMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADD_FOLDER)).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 addItems(JFileChooser.DIRECTORIES_ONLY);
             }
         });
-        fileMenu.add("Add Location").addActionListener(new ActionListener() {
+        fileMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADD_LOCATION)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ret = JOptionPane.showInputDialog(comp, "Enter URL", "Add Location", JOptionPane.QUESTION_MESSAGE);
+                String ret = JOptionPane.showInputDialog(comp, LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ENTER_URL), LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADD_LOCATION), JOptionPane.QUESTION_MESSAGE);
                 if (!Util.isEmpty(ret)) {
                     PlaylistTable table = tabs.getSelectedTable();
                     if (table == null)
@@ -244,7 +246,7 @@ public class PlaylistPanel extends JPanel {
             }
         });
         fileMenu.addSeparator();
-        fileMenu.add(newItem("Close", "ctrl W", new ActionListener() {
+        fileMenu.add(newItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_CLOSE), "ctrl W", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (config.getBoolean("tray.enabled", false) &&
@@ -255,7 +257,7 @@ public class PlaylistPanel extends JPanel {
                 }
             }
         }));
-        fileMenu.add(newItem("Quit", "ctrl Q", new ActionListener() {
+        fileMenu.add(newItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_QUIT), "ctrl Q", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.exit();
@@ -264,7 +266,7 @@ public class PlaylistPanel extends JPanel {
 
         TransferActionListener transferListener = new TransferActionListener();
 
-        JMenuItem menuItem = new JMenuItem("Cut");
+        JMenuItem menuItem = new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_CUT));
         menuItem.setActionCommand((String) TransferHandler.getCutAction().
                 getValue(Action.NAME));
         menuItem.addActionListener(transferListener);
@@ -272,7 +274,7 @@ public class PlaylistPanel extends JPanel {
         menuItem.setMnemonic(KeyEvent.VK_T);
         editMenu.add(menuItem);
 
-        menuItem = new JMenuItem("Copy");
+        menuItem = new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_COPY));
         menuItem.setActionCommand((String) TransferHandler.getCopyAction().
                 getValue(Action.NAME));
         menuItem.addActionListener(transferListener);
@@ -280,7 +282,7 @@ public class PlaylistPanel extends JPanel {
         menuItem.setMnemonic(KeyEvent.VK_C);
         editMenu.add(menuItem);
 
-        menuItem = new JMenuItem("Paste");
+        menuItem = new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PASTE));
         menuItem.setActionCommand((String) TransferHandler.getPasteAction().
                 getValue(Action.NAME));
         menuItem.addActionListener(transferListener);
@@ -288,7 +290,7 @@ public class PlaylistPanel extends JPanel {
         menuItem.setMnemonic(KeyEvent.VK_P);
         editMenu.add(menuItem);
         editMenu.addSeparator();
-        editMenu.add("Clear").addActionListener(new ActionListener() {
+        editMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_CLEAR)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PlaylistTable table = tabs.getSelectedTable();
@@ -298,13 +300,19 @@ public class PlaylistPanel extends JPanel {
                 table.update();
             }
         });
-        editMenu.add(tableAction("removeSelected", "Remove Tracks"));
-        final String[] groupItems = {"None", "Artist", "Album Artist", "Artist/Album",
-                "Artist/Album/Date", null, "Custom"};
+        editMenu.add(tableAction("removeSelected",LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_REMOVE_TRACKS)));
+        final String[] groupItems = {
+        		LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_NONE), 
+        		LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_ARTIST),
+        		LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_ALBUM_ARTIST),
+        		LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_ARTIST_ALBUM),
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_ARTIST_ALBUM_DATE),
+                null, 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_CUSTOM)};
         final String[] groupValues = {null, "%artist%", "%albumArtist%", "%albumArtist%[ - %album%]",
                 "%albumArtist%[ - %album%][ '['%year%']']"
         };
-        JMenu groups = new JMenu("Group playlist");
+        JMenu groups = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_GROUP_PLAYLIST));
         ActionListener groupListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -360,12 +368,17 @@ public class PlaylistPanel extends JPanel {
 
         editMenu.add(groups);
 
-        JMenu sort = new JMenu("Sort");
+        JMenu sort = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT));
         String[] sortItems = {
-                "Sort by...", "Randomize", "Reverse",
-                "Sort by Artist", "Sort by Album",
-                "Sort by File Path", "Sort by Title",
-                "Sort by Track Number", "Sort by Album Artist/Year/Album/Disc/Track/File Name"
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_BY_CUSTOM), 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_BY_RANDOMIZE), 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_BY_REVERSE),
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_BY_ARTIST), 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_BY_ALBUM),
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_FILE_PATH), 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_TITLE),
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_TRACK_NUMBER), 
+                LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SORT_ALBUM_ARTIST_YEAR_ALBUM_DISC_TRACK_FILE_NAME)
         };
 
         final String[] sortValues = {
@@ -424,14 +437,14 @@ public class PlaylistPanel extends JPanel {
 
         editMenu.add(sort);
         editMenu.addSeparator();
-        editMenu.add(tableAction("clearQueue", "Clear Playback Queue"));
-        editMenu.add(new JMenuItem("View Playback Queue")).addActionListener(new ActionListener() {
+        editMenu.add(tableAction("clearQueue",LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_CLEAR_PLAYBACK_QUEUE)));
+        editMenu.add(new JMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_VIEW_PLAYBACK_QUEUE))).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PlaybackQueueDialog(comp).setVisible(true);
             }
         });
-        editMenu.add(newItem("Search", "ctrl F", new ActionListener() {
+        editMenu.add(newItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SEARCH), "ctrl F", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PlaylistTable table = tabs.getSelectedTable();
@@ -440,7 +453,7 @@ public class PlaylistPanel extends JPanel {
                 new SearchDialog(table).setVisible(true);
             }
         }));
-        editMenu.add("Remove Dead Items").addActionListener(new ActionListener() {
+        editMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_REMOVE_DEAD_ITEMS)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PlaylistTable table = tabs.getSelectedTable();
@@ -449,7 +462,7 @@ public class PlaylistPanel extends JPanel {
                 }
             }
         });
-        editMenu.add("Remove Duplicates").addActionListener(new ActionListener() {
+        editMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_REMOVE_DUPLICATES)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PlaylistTable table = tabs.getSelectedTable();
@@ -459,7 +472,7 @@ public class PlaylistPanel extends JPanel {
             }
         });
         editMenu.addSeparator();
-        JMenuItem propsItem = editMenu.add("Properties");
+        JMenuItem propsItem = editMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PROPERTIES));
         propsItem.setIcon(emptyIcon);
         propsItem.setAccelerator(KeyStroke.getKeyStroke("ctrl P"));
         propsItem.addActionListener(new ActionListener() {
@@ -469,7 +482,7 @@ public class PlaylistPanel extends JPanel {
             }
         });
 
-        JMenu orderMenu = new JMenu("Order");
+        JMenu orderMenu = new JMenu(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ORDER));
         playbackMenu.add(orderMenu);
         ActionListener orderListener = new ActionListener() {
             @Override
@@ -505,9 +518,9 @@ public class PlaylistPanel extends JPanel {
 
         playbackMenu.addSeparator();
 
-        playbackMenu.add(tableAction("showNowPlaying", "Scroll to Now Playing"));
+        playbackMenu.add(tableAction("showNowPlaying",LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_SCROLL_TO_NOW_PLAYING)));
         boolean selected = config.getBoolean("playlists.cursorFollowsPlayback", true);
-        playbackMenu.add(new JCheckBoxMenuItem("Cursor Follows Playback", selected)).addActionListener(new ActionListener() {
+        playbackMenu.add(new JCheckBoxMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_CURSOR_FOLLOWS_PLAYBACK), selected)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem item = (JCheckBoxMenuItem) e.getSource();
@@ -516,7 +529,7 @@ public class PlaylistPanel extends JPanel {
         });
 
         selected = config.getBoolean("playlists.playbackFollowsCursor", false);
-        playbackMenu.add(new JCheckBoxMenuItem("Playback Follows Cursor", selected)).addActionListener(new ActionListener() {
+        playbackMenu.add(new JCheckBoxMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_PLAYBACK_FOLLOWS_CURSOR), selected)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JCheckBoxMenuItem item = (JCheckBoxMenuItem) e.getSource();
@@ -524,7 +537,7 @@ public class PlaylistPanel extends JPanel {
             }
         });
 
-        final JCheckBoxMenuItem stopAfterCurrent = new JCheckBoxMenuItem("Stop After Current");
+        final JCheckBoxMenuItem stopAfterCurrent = new JCheckBoxMenuItem(LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_STOP_AFTER_CURRENT));
         playbackMenu.add(stopAfterCurrent).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -546,7 +559,7 @@ public class PlaylistPanel extends JPanel {
     private void addItems(int selectionMode) {
         boolean allowFiles = selectionMode != JFileChooser.DIRECTORIES_ONLY;
         TreeFileChooser fc = new TreeFileChooser(this,
-                allowFiles ? "Open file" : "Open folder",
+                allowFiles ? LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_OPEN_FILE) :LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_OPEN_FOLDER),
                 allowFiles);
         File[] files = fc.showOpenDialog();
 
@@ -554,7 +567,7 @@ public class PlaylistPanel extends JPanel {
             final PlaylistTable table = tabs.getSelectedTable();
             if (table == null)
                 return;
-            ProgressDialog dialog = new ProgressDialog(table.getParentFrame(), "Adding Files");
+            ProgressDialog dialog = new ProgressDialog(table.getParentFrame(), LanguageUtil.getLocalText(LanguageConfigconst.PLAYLIST_ADDING_FILES));
             dialog.show(new Task.FileAddingTask(table.getPlaylist(), files, -1));
         }
     }

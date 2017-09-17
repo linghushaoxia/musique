@@ -11,6 +11,7 @@
 
     <artifactId>musique-core</artifactId>
     <name>musique-core</name>
+    <version>0.4</version>
 
     <build>
         <resources>
