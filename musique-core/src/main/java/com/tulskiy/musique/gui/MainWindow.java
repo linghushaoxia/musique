@@ -38,6 +38,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Author: Denis Tulskiy
@@ -151,21 +155,49 @@ public class MainWindow extends JFrame {
         helpMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp, "Readme", ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"README.txt")).setVisible(true);
+                try {
+					new TextDialog(comp, "Readme", new BufferedReader( 
+							new InputStreamReader(
+									ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"README.txt")
+									,LanguageConfigconst.CHAR_SET))).setVisible(true);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
 
         helpMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_LICENSE)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp,LanguageUtil.getLocalText(LanguageConfigconst.SET_LICENSE), ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"Copying.txt")).setVisible(true);
+                try {
+					new TextDialog(comp,
+							LanguageUtil.getLocalText(LanguageConfigconst.SET_LICENSE),
+							new BufferedReader( 
+									new InputStreamReader(
+											ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"Copying.txt")
+											,LanguageConfigconst.CHAR_SET))).setVisible(true);
+				} catch (UnsupportedEncodingException e1) {
+					e1.printStackTrace();
+				}
             }
         });
 
         helpMenu.add(LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT)).addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new TextDialog(comp, LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT), ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"about.txt")).setVisible(true);
+                try {
+					new TextDialog(
+							comp, 
+							LanguageUtil.getLocalText(LanguageConfigconst.SET_ABOUT), 
+							new BufferedReader( 
+									new InputStreamReader(
+											ClassLoader.getSystemResourceAsStream(LanguageConfigconst.RESOURCES_PATH_BASE+"about.txt")
+											,LanguageConfigconst.CHAR_SET))).setVisible(true);
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
         });
     }

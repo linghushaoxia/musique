@@ -26,8 +26,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -36,13 +38,17 @@ import java.util.Scanner;
  * Date: Sep 29, 2010
  */
 public class TextDialog extends JDialog {
-    public TextDialog(JFrame owner, String title, InputStream file) {
+    public TextDialog(JFrame owner, String title, BufferedReader reader) {
         super(owner, title);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         StringBuilder sb = new StringBuilder();
-        Scanner fi = new Scanner(file);
-		while (fi.hasNextLine()) {
-		    sb.append(fi.nextLine()).append("\n");
+		String temp = null;
+        try {
+			while ((temp=reader.readLine())!=null) {
+			    sb.append(temp).append("\n");
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		JTextArea textArea = new JTextArea(sb.toString());
 		textArea.setOpaque(true);

@@ -22,7 +22,6 @@ public class LanguageUtil {
 	private static String languagePathBase = "/com/tulskiy/musique/resources/";
 	//初始化
 	private static boolean init=false;
-	private static String charSet = "UTF-8";
 	private static void init(){
 		if (init) {
 			return;
@@ -72,7 +71,7 @@ public class LanguageUtil {
 				language="zh-CN";
 			}
 			InputStream inputStream = LanguageUtil.class.getResourceAsStream(buildPath(language));
-			properties.load(new InputStreamReader(inputStream,LanguageUtil.charSet));
+			properties.load(new InputStreamReader(inputStream,LanguageConfigconst.CHAR_SET));
 		} catch (FileNotFoundException e) {
 			System.out.println("load language resources has error");
 			e.printStackTrace();

@@ -10,6 +10,8 @@ public class LanguageConfigconst {
 	 * 资源文件基路径
 	 */
 	public static String RESOURCES_PATH_BASE="com/tulskiy/musique/resources/";
+	public static String CHAR_SET = "UTF-8";
+
 	/**vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv播放列表vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv*/
 	/**
 	 * 新建播放列表
